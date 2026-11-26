@@ -65,20 +65,23 @@ Created `docs/planning.md` and `requirements.md`, and set up the project folder 
 
 ---
 
-## Entry 4: [Title]
+## Entry 4: Implementing the Email Parser
 
-**Date:**
-**Phase:**
+**Date:** November 25, 2026
+**Phase:** Implementation
 
 **Prompt:**
->
+> Let's continue working through this project, also you need to explain what we're actually doing.
 
 **AI response (summary):**
+Generated `parser.py`, which validates input, reads headers with Python's email library, separates display names from addresses, combines authentication results, walks MIME parts to separate text, HTML, and attachments, and extracts links with both their visible text and actual destination. Also generated 9 pytest tests and explained how raw emails and MIME parts are structured.
 
 **My modifications:**
+Reviewed the parser logic against the sample phishing email to confirm it extracted the hidden link destination correctly. Fixed a file setup issue where module contents were placed in the wrong files, which caused a circular import error.
 
 **Result:**
+Parser complete with 10 passing tests.
 
 ---
 
-<!-- Copy the Entry template above for each new interaction. Minimum 10 entries required. -->
+
