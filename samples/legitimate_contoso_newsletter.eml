@@ -1,0 +1,19 @@
+Return-Path: <news@contoso-bank.example>
+Received: from mail.contoso-bank.example (198.51.100.20) by mx.recipient.example
+Authentication-Results: mx.recipient.example;
+ spf=pass smtp.mailfrom=contoso-bank.example;
+ dkim=pass header.d=contoso-bank.example;
+ dmarc=pass header.from=contoso-bank.example
+From: "Contoso Bank" <news@contoso-bank.example>
+To: customer@recipient.example
+Subject: Your November community newsletter
+Date: Mon, 23 Nov 2026 10:00:00 -0600
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+
+<html><body>
+<p>Hello,</p>
+<p>Here are this month's community updates and branch holiday hours.</p>
+<p><a href="https://www.contoso-bank.example/news/november">https://www.contoso-bank.example/news/november</a></p>
+<p>Contoso Bank will never ask for your password by email.</p>
+</body></html>

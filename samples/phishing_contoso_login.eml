@@ -1,0 +1,33 @@
+Return-Path: <bounce@mailer-update.example>
+Received: from mailer-update.example (192.0.2.55) by mx.recipient.example
+Authentication-Results: mx.recipient.example;
+ spf=fail smtp.mailfrom=mailer-update.example;
+ dkim=none;
+ dmarc=fail header.from=contoso-bank.example
+From: "Contoso Bank Security" <security@contoso-bank-alerts.example>
+Reply-To: support@account-verify-help.example
+To: customer@recipient.example
+Subject: URGENT: Your account will be suspended within 24 hours
+Date: Mon, 23 Nov 2026 09:14:00 -0600
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="BOUNDARY1"
+
+--BOUNDARY1
+Content-Type: text/html; charset="utf-8"
+
+<html><body>
+<p>Dear Customer,</p>
+<p>We detected unusual activity on your account. To avoid suspension, you must verify your account immediately.</p>
+<p><a href="http://192.0.2.10/contoso/login.php">https://www.contoso-bank.example/secure-login</a></p>
+<p>Please confirm your username and password within 24 hours or your account will be permanently locked.</p>
+<p>Contoso Bank Security Team</p>
+</body></html>
+
+--BOUNDARY1
+Content-Type: application/octet-stream; name="Account_Statement.html"
+Content-Disposition: attachment; filename="Account_Statement.html"
+Content-Transfer-Encoding: base64
+
+PGh0bWw+PGJvZHk+U2FtcGxlIGF0dGFjaG1lbnQ8L2JvZHk+PC9odG1sPg==
+
+--BOUNDARY1--
