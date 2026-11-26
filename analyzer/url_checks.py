@@ -1,15 +1,12 @@
-"""Calculates the risk score, verdict, and ATT&CK techniques from findings."""
+"""Link-based phishing checks."""
 
-from analyzer.models import Finding
-
-SEVERITY_WEIGHTS = {"low": 10, "medium": 20, "high": 35}
-MEDIUM_THRESHOLD = 30
-HIGH_THRESHOLD = 60
+from analyzer.models import Finding, ParsedEmail
 
 
-def score_findings(findings: list[Finding]) -> tuple[int, str, list[str]]:
-    """Return (score, verdict, attack_techniques) for a list of findings.
+def run_url_checks(email: ParsedEmail) -> list[Finding]:
+    """Run all link checks and return any findings.
 
-    TODO (Day 4): sum weights, apply thresholds, collect unique techniques.
+    TODO (Day 3): text/destination mismatch, raw IP URLs, URL shorteners,
+    lookalike domains.
     """
     raise NotImplementedError

@@ -1,12 +1,21 @@
-"""Header-based phishing checks: authentication results and sender mismatches."""
+"""Generates plain-language explanations using the Google Gemini API."""
 
-from analyzer.models import Finding, ParsedEmail
+import os
+
+from analyzer.models import AnalysisResult, ParsedEmail
+
+DEFAULT_MODEL = "gemini-2.5-flash"
 
 
-def run_header_checks(email: ParsedEmail) -> list[Finding]:
-    """Run all header checks and return any findings.
+def get_model_name() -> str:
+    """Return the Gemini model name, configurable through GEMINI_MODEL."""
+    return os.getenv("GEMINI_MODEL", DEFAULT_MODEL)
 
-    TODO (Day 2): SPF/DKIM/DMARC results, Reply-To and Return-Path
-    mismatches, display name impersonation.
+
+def explain_findings(email: ParsedEmail, result: AnalysisResult) -> tuple[str, bool]:
+    """Return (explanation, ai_available).
+
+    TODO (Day 4): build the prompt from findings and a short email excerpt,
+    call Gemini, handle missing keys and API errors with a rules-only fallback.
     """
     raise NotImplementedError

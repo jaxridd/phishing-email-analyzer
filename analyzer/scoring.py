@@ -1,13 +1,15 @@
-"""Builds downloadable Markdown and JSON reports."""
+"""Calculates the risk score, verdict, and ATT&CK techniques from findings."""
 
-from analyzer.models import AnalysisResult
+from analyzer.models import Finding
+
+SEVERITY_WEIGHTS = {"low": 10, "medium": 20, "high": 35}
+MEDIUM_THRESHOLD = 30
+HIGH_THRESHOLD = 60
 
 
-def to_markdown(result: AnalysisResult) -> str:
-    """Return the analysis as a Markdown report. TODO (Day 5)."""
-    raise NotImplementedError
+def score_findings(findings: list[Finding]) -> tuple[int, str, list[str]]:
+    """Return (score, verdict, attack_techniques) for a list of findings.
 
-
-def to_json(result: AnalysisResult) -> str:
-    """Return the analysis as a JSON report. TODO (Day 5)."""
+    TODO (Day 4): sum weights, apply thresholds, collect unique techniques.
+    """
     raise NotImplementedError
