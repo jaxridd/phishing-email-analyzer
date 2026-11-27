@@ -10,6 +10,23 @@ HIGH_THRESHOLD = 60
 def score_findings(findings: list[Finding]) -> tuple[int, str, list[str]]:
     """Return (score, verdict, attack_techniques) for a list of findings.
 
-    TODO (Day 4): sum weights, apply thresholds, collect unique techniques.
+    Each rule counts once toward the score, even if it matched several times
+    (for example, three suspicious links), so one repeated problem can't
+    inflate the score on its own.
     """
-    raise NotImplementedError
+    unique_rules: dict[str, Finding] = {}
+    for finding in findings:
+        unique_rules.setdefault(finding.rule_id, finding)
+
+    score = sum(SEVERITY_WEIGHTS.get(f.severity, 0) for f in unique_rules.values())
+    techniques = sorted({f.attack_technique for f in findings if f.attack_technique})
+    return score, get_verdict(score), techniques
+
+
+def get_verdict(score: int) -> str:
+    """Convert a numeric score into a Low, Medium, or High verdict."""
+    if score >= HIGH_THRESHOLD:
+        return "High"
+    if score >= MEDIUM_THRESHOLD:
+        return "Medium"
+    return "Low"

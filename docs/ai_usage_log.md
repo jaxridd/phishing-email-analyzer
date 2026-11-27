@@ -84,4 +84,57 @@ Parser complete with 10 passing tests.
 
 ---
 
+## Entry 5: Implementing Header Checks
 
+**Date:** November 26, 2026
+**Phase:** Implementation and testing
+
+**Prompt:**
+> Done, 10 passed. Let's continue.
+
+**AI response (summary):**
+Generated `header_checks.py` with four checks: SPF, DKIM, and DMARC authentication results; Reply-To domain mismatch; Return-Path domain mismatch; and display name impersonation using a list of commonly spoofed brands. Each check returns findings with a rule ID, severity, evidence, and MITRE ATT&CK technique. Also generated 8 pytest tests, including false-positive tests for subdomain bounce addresses and real brand domains, and explained what SPF, DKIM, and DMARC verify.
+
+**My modifications:**
+Reviewed the severity levels and confirmed Return-Path mismatches should stay low severity because legitimate mailing services use separate bounce domains. Noted that the base domain comparison does not handle domains like .co.uk and added it as a future enhancement.
+
+**Result:**
+Header checks complete. All 18 tests passed, and the phishing sample triggered all five expected header rules while the legitimate sample triggered none.
+
+---
+
+## Entry 6: Implementing Link Checks
+
+**Date:** November 26, 2026
+**Phase:** Implementation and testing
+
+**Prompt:**
+> Let's check the links.
+
+**AI response (summary):**
+Generated `url_checks.py` with five checks per link: visible text versus actual destination mismatch, raw IP address links, URL shorteners, lookalike domains (punycode and brand names in non-brand domains), and links without HTTPS. Reused the brand list and base domain function from the header checks module. Also generated 9 pytest tests covering each rule and false positives such as "Click here" text and the real paypal.com domain.
+
+**My modifications:**
+Verified that the phishing sample's hidden link (displaying the bank's domain but pointing to a raw IP address) was caught by the mismatch and IP address checks. Confirmed that www and non-www versions of the same domain were not flagged as mismatches.
+
+**Result:**
+Link checks complete. All 27 tests passed.
+
+---
+
+## Entry 7: Implementing Content and Attachment Checks
+
+**Date:** November 26, 2026
+**Phase:** Implementation and testing
+
+**Prompt:**
+> Let's do the last check modules.
+
+**AI response (summary):**
+Generated `content_checks.py` with checks for urgency language, credential requests, and risky attachments. Urgency and credential checks use regex patterns, and credential patterns were written to match requests but not warnings such as "we will never ask for your password." Attachment checks flag double extensions, executable and macro-enabled file types, HTML attachments, and archives without opening the files. Also generated 7 pytest tests.
+
+**My modifications:**
+Tested that the legitimate sample email, which contains the word "password" in a security warning, did not trigger a credential request finding. Reviewed the attachment risk levels and kept archives at medium severity since they are commonly used for legitimate file sharing.
+
+**Result:**
+All three check modules complete. All 34 tests passed.
