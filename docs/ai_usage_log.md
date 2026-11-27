@@ -138,3 +138,47 @@ Tested that the legitimate sample email, which contains the word "password" in a
 
 **Result:**
 All three check modules complete. All 34 tests passed.
+
+---
+
+## Entry 8: Debugging a Package Import Warning
+
+**Date:** November 26, 2026
+**Phase:** Debugging
+
+**Prompt:**
+> Import "bs4" could not be resolved
+
+**AI response (summary):**
+Explained that this warning comes from VS Code, not Python, and usually means the editor is checking code with a different Python interpreter than the one the packages were installed into. Provided a terminal command to confirm whether BeautifulSoup was installed, steps to select the correct Python 3.11 interpreter in VS Code, and a reinstall command in case the package was missing.
+
+**My modifications:**
+Ran the check command to confirm the package was installed, then selected the correct interpreter in VS Code. Confirmed the fix by running the full test suite.
+
+**Result:**
+Warning resolved. All 10 tests passed.
+
+---
+
+## Entry 9: Scoring, Gemini Integration, and Streamlit Interface
+
+**Date:** November 27, 2026
+**Phase:** Implementation and testing
+
+**Prompt:**
+> Alright, let's continue on.
+
+**AI response (summary):**
+Generated four components:
+- `scoring.py`: converts findings into a score and a Low, Medium, or High verdict, counting each rule only once so repeated issues don't inflate the score.
+- `pipeline.py`: a single `analyze_email()` function that runs parsing, all checks, scoring, and the AI explanation in order.
+- `llm.py`: connects to the Google Gemini API with a system instruction that explains findings for non-technical readers. The email excerpt is limited to 800 characters and wrapped in untrusted-data tags so instructions hidden in an email can't manipulate the AI. Falls back to a rules-only summary if the API key is missing or the call fails.
+- `app.py`: a Streamlit interface with sample email buttons, paste and upload input, a color-coded verdict, MITRE ATT&CK links, grouped findings, the AI explanation, and parsed email details.
+
+Also generated 10 pytest tests, using mocking so no tests call the real Gemini API.
+
+**My modifications:**
+During browser testing, found that suspicious URLs and email addresses in the findings displayed as clickable links, which could lead a user to click a phishing link by accident. Changed the evidence to display as non-clickable code text, and added defanging (http to hxxp) to URLs in the AI explanation. Also added a pipeline module that was not in the original plan to keep the interface separate from the analysis logic.
+
+**Result:**
+The app works end to end. The phishing sample is rated High risk with 11 findings, and the legitimate sample is rated Low with a score of 0. All 44 tests passed.
